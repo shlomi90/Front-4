@@ -18,12 +18,13 @@ function App() {
     setAccessToken(access);
     setRefreshToken(refresh);
     setIsAuthenticated(true);
+    console.log(isAuthenticated)
   };
 
   const handleLogout = async (refreshToken:any) => {
     try {
       console.log('refresh token:', refreshToken);
-      const response = await axios.get("https://10.10.248.205/auth/logout", {
+      const response = await axios.get("https://193.106.55.205/auth/logout", {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
@@ -41,7 +42,7 @@ function App() {
   const fetchPosts = async () => {
       
     try {
-      const response = await axios.get('https://10.10.248.205/post', {
+      const response = await axios.get('https://193.106.55.205/post', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -59,9 +60,9 @@ function App() {
       />} {/* Render Navbar only if authenticated */}
       {isAuthenticated && <Edamam handleLogout={handleLogout} />} {/* Render Edamam only if authenticated */}
       {!isAuthenticated ? (
-        <Auth onLogin={handleLogin}  />
+        <Auth onLogin={handleLogin} fetchPosts={fetchPosts}  />
       ) : (
-        <Homepage accessToken={accessToken} posts={posts} fetchPosts={fetchPosts} />
+        <Homepage accessToken={accessToken} posts={posts} fetchPosts={fetchPosts} setPosts={setPosts} />
 
       )}
     </div>

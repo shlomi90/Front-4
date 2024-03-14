@@ -46,15 +46,18 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
     const handleSaveChanges = async () => {
         const user_id = localStorage.getItem('userId');
         let imgUrl = localStorage.getItem('imgURL');
+        const username = localStorage.getItem('userName');
 
         if (isEditingImage) {
             imgUrl = await uploadImage(image!);
         }
 
         try {
-            await axios.put(`https://10.10.248.205/auth/${user_id}`, {
+            await axios.put(`https://193.106.55.205/auth/${user_id}`, {
                 email: editedEmail,
                 imgURL: imgUrl,
+                username: username,
+                
             });
 
             localStorage.setItem('email', editedEmail);
@@ -79,14 +82,14 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
                 <h2>Your Profile</h2>
                 <div className="profile-container">
                     <div className="profile-details">
-                        <p>Email: {isEditingEmail ? <input type="text" value={editedEmail} onChange={handleEmailChange} /> : <span onClick={handleEmailEdit}>{editedEmail}</span>}</p>
-                        <p>Username: {editedUsername}</p>
+                        <p><strong>Email:</strong> {isEditingEmail ? <input type="text" value={editedEmail} onChange={handleEmailChange} /> : <span onClick={handleEmailEdit}>{editedEmail}</span>}</p>
+                        <p><strong>Username:</strong> {editedUsername}</p>
                         <div className='number-of-posts'>
-                            <p>Number of Posts: {numberOfPosts}</p>
+                            <p><strong>Number of Posts: </strong> {numberOfPosts}</p>
                         </div>
 
                         <div className="profile-image">
-                            <p>Your image:</p>
+                            <p><strong>Your image: </strong></p>
                             <img src={imagePreview || localStorage.getItem('imgURL') || ''} alt="Your Profile " id='pic' style={{ maxWidth: '100%', maxHeight: '100%' }} />
                         </div>
                         <input type="file" onChange={handleFile} />

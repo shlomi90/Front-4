@@ -6,11 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Style/homepage.css';
 
 
-function Homepage({ accessToken, posts, fetchPosts }: { accessToken: string, posts: any[], fetchPosts: () => void }) {
+function Homepage({ accessToken, posts, fetchPosts,setPosts}: { accessToken: string, posts: any[],setPosts:any, fetchPosts: () => void }) {
   const [selectedPost, setSelectedPost] = useState(null);
 
     useEffect(() => {
       fetchPosts();
+      setPosts(posts);
     }, [accessToken]);
 
   const handlePostClick = (post:any) => {

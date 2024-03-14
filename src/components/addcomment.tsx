@@ -5,7 +5,7 @@ import  { useState } from 'react';
 const AddComment = ({post, onClose }:{post:any,onClose:any}) => {
   const [commentText, setCommentText] = useState('');
 
-  const handleInputChange = (event:React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (event:any) => {
     setCommentText(event.target.value);
   };
 
@@ -16,7 +16,7 @@ const AddComment = ({post, onClose }:{post:any,onClose:any}) => {
     console.log(post_id);
     console.log(user_id);
     try {
-      const response = await axios.post(`https://10.10.248.205/post/${post_id}/comments`, {
+      const response = await axios.post(`https://193.106.55.205/post/${post_id}/comments`, {
         content: commentText,
         author: user_id,
       }, {

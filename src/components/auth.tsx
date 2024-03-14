@@ -9,7 +9,7 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import {googleSignIn} from '../services/user.tsx';
 
 
-function Auth({ onLogin }:{onLogin:any}) {
+function Auth({ onLogin,fetchPosts }:{onLogin:any,fetchPosts:any}) {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [, setUserId] = useState('');
@@ -30,10 +30,11 @@ function Auth({ onLogin }:{onLogin:any}) {
     setErrorMessage('');
   }
 
-  const handleLogin = async () => {
-    // e.preventDefault();
+  const handleLogin = async (_e:any) => {
+    _e.preventDefault(); // Prevent default form submission behavior
+    
     try {
-      const response = await axios.post("https://10.10.248.205/auth/login", {
+      const response = await axios.post("https://193.106.55.205/auth/login", {
         email: email,
         password: password
       });
@@ -60,11 +61,12 @@ function Auth({ onLogin }:{onLogin:any}) {
         console.log('refresh token:', refresh);
         onLogin(access, refresh);
         handleModalClose();
+        fetchPosts();
       } else {
         // Handle the case where response.data is undefined or does not contain 'access token:'
         console.error('Unexpected response format:', response.data);
       }
-    } catch (err: any) {
+    } catch (err:any) {
       setErrorMessage(err.response?.data + '😔');
       console.error(err);
     }
@@ -72,10 +74,11 @@ function Auth({ onLogin }:{onLogin:any}) {
 
   
 
-  const handleRegister = async () => {
-    const url=await uploadImage(img!);
+  const handleRegister = async (e:any) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    const url = await uploadImage(img!);
     try {
-      const response = await axios.post("https://10.10.248.205/auth/register", {
+      const response = await axios.post("https://193.106.55.205/auth/register", {
         email: email,
         password: password,
         username: userName,
@@ -84,12 +87,13 @@ function Auth({ onLogin }:{onLogin:any}) {
       console.log(response.data);
      
       handleModalClose();
-      handleLogin();
+      handleLogin(response);
     } catch (error:any) {
       setErrorMessage(error.response?.data + '😔');
       console.error('Registration failed', error);
     }
   };
+
 
 const handleFile = (e:React.ChangeEvent<HTMLInputElement>) => {
   const files = e.target.files;
@@ -107,8 +111,6 @@ const handleFile = (e:React.ChangeEvent<HTMLInputElement>) => {
     reader.readAsDataURL(file);
   }
 }
-
-
 
 const onGoogleLoginSucess = async (credentialResponse:CredentialResponse) => {
   console.log (credentialResponse);

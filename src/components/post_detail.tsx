@@ -31,7 +31,7 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
     const post_id = post._id;
     const accessToken = localStorage.getItem('accessToken');
     try {
-      const response = await axios.get(`https://10.10.248.205/post/${post_id}/comments`, {
+      const response = await axios.get(`https://193.106.55.205/post/${post_id}/comments`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -69,7 +69,7 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
   const handleDelete = async (post_id:string) => {
     const accessToken = localStorage.getItem('accessToken');
     try {
-      const response = await axios.delete(`https://10.10.248.205/post/${post_id}`, {
+      const response = await axios.delete(`https://193.106.55.205/post/${post_id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -15,7 +15,7 @@ const NewPostModal = ({onClose,fetchPosts}:{onClose:any,fetchPosts:any}) => {
     const accessToken = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
     try{
-      const response = await axios.post('https://10.10.248.205/post', {
+      const response = await axios.post('https://193.106.55.205/post', {
         user_id: userId,
         title: title,
         message: message,
