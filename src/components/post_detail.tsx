@@ -31,7 +31,7 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
     const post_id = post._id;
     const accessToken = localStorage.getItem('accessToken');
     try {
-      const response = await axios.get(`https://193.106.55.205/post/${post_id}/comments`, {
+      const response = await axios.get(`http://localhost:3000/post/${post_id}/comments`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -69,7 +69,7 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
   const handleDelete = async (post_id:string) => {
     const accessToken = localStorage.getItem('accessToken');
     try {
-      const response = await axios.delete(`https://193.106.55.205/post/${post_id}`, {
+      const response = await axios.delete(`http://localhost:3000/post/${post_id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -83,10 +83,13 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
   }
   const handleEdit = async () => {
     setIsEditing(true);
+    setImagePreview(post.image);
   }
 
-  const handleSaveEdit = async (post_id:any) => {
+  
+  const handleSaveEdit = async (post_id:string) => {
     const accessToken = localStorage.getItem('accessToken');
+    console.log(post_id);
     try {
       let updatedData: any = {};
   
@@ -102,9 +105,10 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
         const url = await uploadImage(image!);
         updatedData.image = url;
       }
+    
 
       await axios.put(
-        `https://193.106.55.205/post/${post_id}`,
+        `http://localhost:3000/post/${post_id}`,
         updatedData,
         {
           headers: {
@@ -162,7 +166,7 @@ return (
         )}
         {isEditing && (
           <>
-            <button className='save' onClick={handleSaveEdit}>Save</button>
+            <button className='save' onClick={()=>handleSaveEdit(post._id)}>Save</button>
             <button className='cancel' onClick={handleCancelEdit}>Cancel</button>
           </>
         )}

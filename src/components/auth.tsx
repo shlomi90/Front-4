@@ -34,7 +34,7 @@ function Auth({ onLogin,fetchPosts }:{onLogin:any,fetchPosts:any}) {
     e.preventDefault(); // Prevent default form submission behavior
     
     try {
-      const response = await axios.post("https://193.106.55.205/auth/login", {
+      const response = await axios.post("http://localhost:3000/auth/login", {
         email: email,
         password: password
       });
@@ -79,7 +79,7 @@ function Auth({ onLogin,fetchPosts }:{onLogin:any,fetchPosts:any}) {
     e.preventDefault(); // Prevent default form submission behavior
     const url = await uploadImage(img!);
     try {
-      const response = await axios.post("https://193.106.55.205/auth/register", {
+      const response = await axios.post("http://localhost:3000/auth/register", {
         email: email,
         password: password,
         username: userName,

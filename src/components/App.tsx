@@ -25,7 +25,7 @@ function App() {
   const handleLogout = async (refreshToken:any) => {
     try {
       console.log('refresh token:', refreshToken);
-      const response = await axios.get("https://193.106.55.205/auth/logout", {
+      const response = await axios.get("http:localhost:3000/auth/logout", {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
@@ -44,7 +44,7 @@ function App() {
     console.log('fetching posts : ' + accessToken)
       
     try {
-      const response = await axios.get(`https://193.106.55.205/post`, {
+      const response = await axios.get(`http://localhost:3000/post`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -39,7 +39,7 @@ const Navbar = ({ handleLogout, refreshToken, setPosts,fetchPosts }:{handleLogou
     try {
       const userId = localStorage.getItem('user');
       const accessToken = localStorage.getItem('accessToken');
-      const response = await axios.get(`https://193.106.55.205/post/${userId}`, {
+      const response = await axios.get(`http://localhost:3000/post/${userId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
