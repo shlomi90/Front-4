@@ -85,7 +85,8 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
     setIsEditing(true);
   }
 
-  const handleSaveEdit = async () => {
+  const handleSaveEdit = async (post_id:any) => {
+    const accessToken = localStorage.getItem('accessToken');
     try {
       let updatedData: any = {};
   
@@ -101,6 +102,16 @@ const PostDetail = ({ post, onClose, fetchPosts }: { post: any, onClose: any, fe
         const url = await uploadImage(image!);
         updatedData.image = url;
       }
+
+      await axios.put(
+        `https://193.106.55.205/post/${post_id}`,
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
   
       // If edit is successful, update the post details and exit edit mode
       if (updatedData.title) {
