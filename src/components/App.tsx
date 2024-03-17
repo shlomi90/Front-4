@@ -25,7 +25,7 @@ function App() {
   const handleLogout = async (refreshToken:any) => {
     try {
       console.log('refresh token:', refreshToken);
-      const response = await axios.get("http:localhost:3000/auth/logout", {
+      const response = await axios.get(`http://localhost:3000/auth/logout`, {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
@@ -41,12 +41,13 @@ function App() {
   }
 
   const fetchPosts = async () => {
-    console.log('fetching posts : ' + accessToken)
+    const acc=localStorage.getItem('accessToken');
+    console.log('fetching posts : ' + acc)
       
     try {
       const response = await axios.get(`http://localhost:3000/post`, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${acc}`,
         },
       });
       console.log(accessToken);
@@ -65,7 +66,7 @@ function App() {
       {!isAuthenticated ? (
         <Auth onLogin={handleLogin} fetchPosts={fetchPosts}  />
       ) : (
-        <Homepage accessToken={accessToken} posts={posts} fetchPosts={fetchPosts} setPosts={setPosts} />
+        <Homepage accessToken={accessToken} posts={posts} setPosts={setPosts} fetchPosts={fetchPosts}  />
 
       )}
     </div>
