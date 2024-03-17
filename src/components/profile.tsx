@@ -53,7 +53,7 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
         }
 
         try {
-            await axios.put(`http://localhost:3000/auth/${user_id}`, {
+            await axios.put(`https://193.106.55.205/auth/${user_id}`, {
                 email: editedEmail,
                 imgURL: imgUrl,
                 username: username,

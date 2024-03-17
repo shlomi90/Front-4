@@ -14,7 +14,7 @@ export interface IUser {
  export const googleSignIn = async (credentialResponse: CredentialResponse) => {
     return new Promise<any>((resolve, reject) => {
     console.log('googleSignIn..');
-    axios.post('http://localhost:3000/auth/google', {
+    axios.post('https://193.106.55.205/auth/google', {
         credentialResponse: credentialResponse
     }).then((response) => {
         console.log(response);

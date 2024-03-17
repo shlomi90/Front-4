@@ -10,7 +10,7 @@ const CommentModal = ({ comments, onClose, post, fetchComments }: { comments: an
     const accessToken = localStorage.getItem('accessToken');
 
     try {
-      const response=await axios.delete(`http://localhost:3000/post/${postId}/comments/${commentId}`, {
+      const response=await axios.delete(`https://193.106.55.205/post/${postId}/comments/${commentId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
