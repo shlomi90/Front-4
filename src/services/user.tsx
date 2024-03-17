@@ -25,7 +25,6 @@ export interface IUser {
         localStorage.setItem('imgURL', response.data['imgURL:']);
         localStorage.setItem('email', response.data['email:']);
         localStorage.setItem('posts', JSON.stringify(response.data.posts));
-       
 
       resolve(response.data);
     }).catch((error) => {

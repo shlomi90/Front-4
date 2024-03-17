@@ -3,8 +3,6 @@ import axios from 'axios';
 interface IUploadImage {
     url: string;
 }
-
-
  export const uploadImage = async (img:File) => {
     return new Promise<string>((resolve, reject) => {
     console.log('uploading'+img);

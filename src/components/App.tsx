@@ -18,6 +18,7 @@ function App() {
     setAccessToken(access);
     setRefreshToken(refresh);
     setIsAuthenticated(true);
+    console.log('access token:', access);
     console.log(isAuthenticated)
   };
 
@@ -40,13 +41,15 @@ function App() {
   }
 
   const fetchPosts = async () => {
+    console.log('fetching posts : ' + accessToken)
       
     try {
-      const response = await axios.get('https://193.106.55.205/post', {
+      const response = await axios.get(`https://193.106.55.205/post`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+      console.log(accessToken);
       setPosts(response.data);
     } catch (error) {
       console.error('Error fetching posts:', error);

@@ -30,8 +30,8 @@ function Auth({ onLogin,fetchPosts }:{onLogin:any,fetchPosts:any}) {
     setErrorMessage('');
   }
 
-  const handleLogin = async (_e:any) => {
-    _e.preventDefault(); // Prevent default form submission behavior
+  const handleLogin = async (e:any) => {
+    e.preventDefault(); // Prevent default form submission behavior
     
     try {
       const response = await axios.post("https://193.106.55.205/auth/login", {
@@ -50,6 +50,7 @@ function Auth({ onLogin,fetchPosts }:{onLogin:any,fetchPosts:any}) {
         const posts = response.data.posts;
         console.log('user id:', user);
         console.log(response.data);
+        console.log('access token:', access);
         setUserId(user);
         setAccessToken(access);
         localStorage.setItem('accessToken', access);
@@ -61,7 +62,7 @@ function Auth({ onLogin,fetchPosts }:{onLogin:any,fetchPosts:any}) {
         console.log('refresh token:', refresh);
         onLogin(access, refresh);
         handleModalClose();
-        fetchPosts();
+        fetchPosts(access);
       } else {
         // Handle the case where response.data is undefined or does not contain 'access token:'
         console.error('Unexpected response format:', response.data);
@@ -87,7 +88,7 @@ function Auth({ onLogin,fetchPosts }:{onLogin:any,fetchPosts:any}) {
       console.log(response.data);
      
       handleModalClose();
-      handleLogin(response);
+      handleLogin(e);
     } catch (error:any) {
       setErrorMessage(error.response?.data + '😔');
       console.error('Registration failed', error);
