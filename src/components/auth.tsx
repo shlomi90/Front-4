@@ -118,9 +118,11 @@ const onGoogleLoginSucess = async (credentialResponse:CredentialResponse) => {
   try{
     const userData= await googleSignIn(credentialResponse);
     console.log(userData);
-    const access= userData['access token:'];
-    console.log(access);
-    const refresh = userData['refresh token:'];
+    localStorage.setItem('accessToken',userData.accessToken);
+    localStorage.setItem('refreshToken',userData.refreshToken);
+    const access = userData.accessToken;
+    const refresh = userData.refreshToken;
+    
     onLogin(access, refresh);
     console.log(access, refresh); 
   }

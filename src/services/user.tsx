@@ -12,12 +12,16 @@ export interface IUser {
 }
 
  export const googleSignIn = async (credentialResponse: CredentialResponse) => {
-    return new Promise<any>((resolve, reject) => {
+  return new Promise<{
+    user: IUser;
+    refreshToken: string;
+    accessToken: string;
+  }>((resolve, reject) => {
     console.log('googleSignIn..');
-    axios.post('https://193.106.55.205/auth/google', {
-        credentialResponse: credentialResponse
+    axios.post('http://localhost:3000/auth/google', {
+        credentialResponse
     }).then((response) => {
-        console.log(response);
+        console.log("the response is:" +response);
         localStorage.setItem('accessToken',response.data['access token:']);
         localStorage.setItem('refreshToken',response.data['refresh token:'])
         localStorage.setItem('userId', response.data['user id:']);
