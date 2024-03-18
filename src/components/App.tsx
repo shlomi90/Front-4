@@ -42,7 +42,7 @@ function App() {
 
   const fetchPosts = async () => {
     const acc=localStorage.getItem('accessToken');
-    console.log('fetching posts : ' + acc)
+
       
     try {
       const response = await axios.get(`https://193.106.55.205/post`, {
