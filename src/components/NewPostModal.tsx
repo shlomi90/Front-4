@@ -14,6 +14,7 @@ const NewPostModal = ({onClose,fetchPosts}:{onClose:any,fetchPosts:any}) => {
     const url=await uploadImage(image!);
     const accessToken = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
+    console.log(accessToken);
     try{
       const response = await axios.post('https://193.106.55.205/post', {
         user_id: userId,

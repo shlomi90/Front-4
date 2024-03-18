@@ -9,7 +9,7 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
     const [image, setImage] = useState<File>();
     const [imagePreview, setImagePreview] = useState<string>('');
     const [isEditingEmail, setIsEditingEmail] = useState(false);
-    const [isEditingImage, setIsEditingImage] = useState(false);
+    
     const [isModified, setIsModified] = useState(false);
 
     useEffect(() => {
@@ -47,26 +47,24 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
         const user_id = localStorage.getItem('userId');
         let imgUrl = localStorage.getItem('imgURL');
         const username = localStorage.getItem('userName');
-
-        if (isEditingImage) {
-            imgUrl = await uploadImage(image!);
+    
+        if (image) {
+            imgUrl = await uploadImage(image);
         }
-
+    
         try {
             await axios.put(`https://193.106.55.205/auth/${user_id}`, {
                 email: editedEmail,
                 imgURL: imgUrl,
                 username: username,
-                
             });
-
+    
             localStorage.setItem('email', editedEmail);
-            if (isEditingImage) {
-                localStorage.setItem('imgURL', imgUrl!);
+            if (imgUrl) {
+                localStorage.setItem('imgURL', imgUrl);
             }
-
+    
             setIsEditingEmail(false);
-            setIsEditingImage(false);
             setIsModified(false);
         } catch (error) {
             console.error('Post failed', error);
